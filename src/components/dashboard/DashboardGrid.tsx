@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart, LineChart, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
 
 const financeData = [
   { month: 'Jan', revenue: 4000, expenditure: 2400 },
@@ -20,15 +22,40 @@ const citizenData = [
 ]
 
 export function DashboardGrid() {
+  const [timeRange, setTimeRange] = useState<'1M' | '3M' | '6M'>('6M')
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <Card>
-        <CardHeader>
+      <Card className="transition-all hover:shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Public Finance Overview</CardTitle>
+          <div className="flex space-x-2">
+            <Button 
+              variant={timeRange === '1M' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setTimeRange('1M')}
+            >
+              1M
+            </Button>
+            <Button 
+              variant={timeRange === '3M' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setTimeRange('3M')}
+            >
+              3M
+            </Button>
+            <Button 
+              variant={timeRange === '6M' ? 'default' : 'outline'} 
+              size="sm"
+              onClick={() => setTimeRange('6M')}
+            >
+              6M
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={financeData}>
+            <BarChart data={financeData.slice(-timeRange.charAt(0) as number)}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
@@ -39,7 +66,7 @@ export function DashboardGrid() {
           </ResponsiveContainer>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="transition-all hover:shadow-lg">
         <CardHeader>
           <CardTitle>Citizen Service Requests</CardTitle>
         </CardHeader>
