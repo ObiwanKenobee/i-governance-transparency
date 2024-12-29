@@ -7,6 +7,7 @@ import Index from "./pages/Index"
 import Dashboard from "./pages/Dashboard"
 import PublicFinance from "./pages/PublicFinance"
 import PredictiveAnalytics from "./pages/PredictiveAnalytics"
+import CitizenEngagement from "./pages/CitizenEngagement"
 
 const queryClient = new QueryClient()
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/dashboard/finance" element={<PublicFinance />} />
           <Route path="/dashboard/analytics" element={<PredictiveAnalytics />} />
+          <Route path="/dashboard/engagement" element={<CitizenEngagement />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
